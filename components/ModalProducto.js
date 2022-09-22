@@ -5,7 +5,7 @@ import { useState } from "react"
 
 export const ModalProducto = () => {
 
-  const { producto, handleChangeModal } = useQuiosco()
+  const { producto, handleChangeModal, handleAgregarPedido } = useQuiosco()
 
   const [cantidad, setCantidad] = useState(1)
 
@@ -58,6 +58,14 @@ export const ModalProducto = () => {
             </svg>
           </button>
         </div>
+
+        <button
+          type="button"
+          className="bg-indigo-600 hover:bg-indigo-800 mt-5 px-5 py-2 text-white font-bold uppercase rounded"
+          onClick={() => handleAgregarPedido({...producto, cantidad})}
+        >
+          Agregar al Pedido
+        </button>
       </div>
     </div>
   )
