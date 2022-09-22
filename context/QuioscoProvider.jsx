@@ -40,7 +40,16 @@ const QuioscoProvider = ({children}) => {
 
   // Agregar y actualizar pedido
   const handleAgregarPedido = ({categoriaId, imagen, ...pedidoSeleccionado}) => {
-    setPedido([...pedido, pedidoSeleccionado])
+    if(pedido.some(productoState => productoState.id === pedidoSeleccionado.id)) {
+      console.log("El producto ya existe");
+      // Actualizar cantidad
+      const pedidoActualizado = pedido.map(productoState => productoState.id === pedidoSeleccionado.id ? pedidoSeleccionado.id : productoState)
+      setPedido(pedidoActualizado)
+    } else {
+      console.log("El producto no existe");
+      setPedido([...pedido, pedidoSeleccionado])
+    }
+    
   }
 
   return (
