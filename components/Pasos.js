@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import useQuiosco from "../hooks/useQuiosco"
 
 const pasos = [
   { paso: 1, nombre: 'Menu', url: '/' },
@@ -7,7 +8,21 @@ const pasos = [
 ]
 
 const Pasos = () => {
+  const { handleChange, paso } = useQuiosco()
   const router = useRouter()
+
+  const calcularProgreso = () => {
+    let valor
+    if (paso === 1) {
+      valor = 2
+    } else if(paso === 2) {
+      valor = 50
+    } else {
+      valor = 100
+    }
+    return valor
+  }
+
   return (
     <>
       <div className="flex justify-between mb-5">
@@ -17,11 +32,17 @@ const Pasos = () => {
           className="text-2xl font-bold"
           onClick={() => {
             router.push(paso.url)
+            handleChange(paso.paso)
           }}
           >
             { paso.nombre }
           </button>
         ))}
+      </div>
+      <div className="bg-gray-100 mb-10">
+        <div className="rounded-full bg-amber-500 text-xs leading-none h-2 text-center text-white"
+        style={{ width: `${calcularProgreso()}%` }}
+        ></div>
       </div>
     </>
   )
